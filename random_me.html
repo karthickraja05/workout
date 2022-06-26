@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Random Me</title>
+	<!-- CSS only -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+	<!-- JavaScript Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>	
+</head>
+<body>
+	<div class="container">
+		<div class="my-5">
+			<div id="main">
+			<button type="button" class="btn btn-primary my-3" id="get_user">Get New One</button>
+			<p>
+				<img src="https://randomuser.me/api/portraits/men/32.jpg" id="profile">
+				<img src="https://i.gifer.com/VsZt.gif" height="30" id="is_female">
+			</p>
+			<p><b>Name: </b><span id="name">Karthickraja</span></p>
+			<p><b>Gender: </b><span id="gender">Male</span></p>
+			<p><b>Email: </b><span id="email">karthikraja@gmail.com</span></p>
+			<p><b>UserName: </b><span id="user_name">karthi</span></p>
+			<p><b>Age: </b><span id="age">30</span></p>
+			<p><b>Phone: </b><span id="phone">302343242</span></p>
+			</div>
+			<div id="load">
+				<img src="https://i.gifer.com/ZKZg.gif" height="100">
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#is_female').hide();
+		$('#load').hide();
+		let updateUserData = {
+			profile: 'https://randomuser.me/api/portraits/men/32.jpg',
+			name: 'Karthickraja',
+			user_name: 'Karthickraja',
+			gender: 'Male',
+			email: 'Karthickraja@gmail.com',
+			age: '26',
+			phone: '302343242',
+		};
+
+		$('#get_user').click(function(){
+			$('#main').hide();
+			$('#load').show();
+			$.ajax({
+			  url: 'https://randomuser.me/api/',
+			  dataType: 'json',
+			  success: function(data) {
+			    let userData = data.results[0];
+			    console.log(userData);
+			    updateUserData.profile = userData.picture.large;
+			    let name = userData.name;
+			    updateUserData.name = `${name.title}.${name.first} ${name.last}`;
+			    updateUserData.gender = userData.gender;
+			    updateUserData.email = userData.email;
+			    updateUserData.user_name = userData.login.username;
+			    updateUserData.age = userData.dob.age;
+			    updateUserData.phone = userData.phone;
+			    // console.log(updateUserData);
+			    updateUserInfo();
+			  }
+			});
+		});
+
+		function updateUserInfo(){
+			Object.keys(updateUserData).forEach(el => {
+				if(el == 'profile'){
+			  		$(`#${el}`).attr('src',updateUserData[el]);
+			  	}else{
+			  		$(`#${el}`).text(updateUserData[el]);
+			  	}
+			});
+			if(updateUserData.gender == 'female'){
+				$('#is_female').show();
+			}else{
+				$('#is_female').hide();
+			}
+			$('#load').hide();
+			$('#main').show();
+		}
+
+	});
+</script>
