@@ -14,20 +14,6 @@
 			
 		</div>
 
-
-		<!-- 
-			<div>Floor 1 <button class="btn btn-primary my-3" id="btn_id_1">Click</button>
-				<div id="main">
-				<img src="https://js.cx/clipart/train.gif" width="150" height="100" id="box">
-				<img src="https://media.giphy.com/media/17mNCcKU1mJlrbXodo/giphy.gif" id='mov' style="display: none;" width="100" height="100">
-				</div>
-			</div>
-			<p>Floor 2 <button class="btn btn-primary my-3" id="btn_id_1">Click</button></p>
-			<p>Floor 3 <button class="btn btn-primary my-3">Click</button></p>
-			<p>Floor 4 <button class="btn btn-primary my-3">Click</button></p>
-		 -->
-
-
 	</div>
 </body>
 </html>
@@ -96,6 +82,7 @@
 								$(`#${floor_arr[current_start_index].ele_main}`).html(stoping());
 						    	updateFalseObj();
 						    	floor_arr[current_start_index].is_present = true;
+						    	currentLocation();
 						        clearInterval(interval);
 						        queue.shift();
 						        queue_running = false;
@@ -116,11 +103,24 @@
 		}
 	}
 
+	function QueueProcess(){
+		process_running = true;
+		let main_interval = setInterval(function(){
+			queueActive();
+			console.log(queue);
+			if(queue.length == 0){
+				clearInterval(main_interval);
+				process_running = false;
+			}
+		},1000);
+	}
+
 	let floorNumber = 8;
 	let floor_arr = [];
 	let ele_location = '';
 	let queue = [];
 	let queue_running = false;
+	let process_running;
 	let travel_time = 3000;
 	$(document).ready(function(){
 		
@@ -132,18 +132,24 @@
 
 		$('.btn-primary').click(function(){
 			var index = $(this).attr('data_index');
+
+				console.log(ele_location);
 			if(ele_location.index !== index){
+				console.log(ele_location);
+				console.log(index);
 				if(queue.indexOf(index) === -1){
 					queue.push(index);
+					console.log(process_running);
+					if(!process_running){
+						QueueProcess();
+					}
 				}
 			}
 		});
 
+		QueueProcess();
 
-		setInterval(function(){
-			queueActive();
-			console.log(queue);
-		},1000);
+		
 
 	});
 </script>
