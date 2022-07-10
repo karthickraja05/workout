@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Elevator Model With Javascript</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+	<!-- JavaScript Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>	
+</head>
+<body>
+	<div class="container">
+		<p>Elevator Moving time is 5 sec from one floor to another</p>
+		<div class="my-5" id="main">
+			
+		</div>
+
+
+		<!-- 
+			<div>Floor 1 <button class="btn btn-primary my-3" id="btn_id_1">Click</button>
+				<div id="main">
+				<img src="https://js.cx/clipart/train.gif" width="150" height="100" id="box">
+				<img src="https://media.giphy.com/media/17mNCcKU1mJlrbXodo/giphy.gif" id='mov' style="display: none;" width="100" height="100">
+				</div>
+			</div>
+			<p>Floor 2 <button class="btn btn-primary my-3" id="btn_id_1">Click</button></p>
+			<p>Floor 3 <button class="btn btn-primary my-3">Click</button></p>
+			<p>Floor 4 <button class="btn btn-primary my-3">Click</button></p>
+		 -->
+
+
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+	function floorUpdate(floorNumber=4){
+		var html = '';
+		for(let i = 0; i < floorNumber; i++){
+			html += `<div data_index="${i}">Floor ${i+1} <button class="btn btn-primary my-3" data_index="${i}" id="btn_id_${i}">Click</button>
+			<div id="ele_main_${i}" class='ele_main'>
+			</div>
+			</div>`;
+		}
+		$('#main').html(html);
+	}
+
+	function updateFloorArr(){
+		for(let i = 0; i < floorNumber; i++){
+			let obj = {
+				index: `${i}`,
+				button: `btn_id_${i}`,
+				ele_main: `ele_main_${i}`,
+				is_present: i == 0 ? true :  false,
+			};
+			floor_arr.push(obj);	
+		};
+	}
+
+	function currentLocation(){
+		ele_location = floor_arr.find((item)=>{
+			return item.is_present == true;
+		});
+	}
+
+	function updateFalseObj(){
+		floor_arr.map((item)=>{
+			item.is_present = false;
+		});
+	}
+
+	function stoping(){
+		return `<img src="https://js.cx/clipart/train.gif" width="150" height="100" id="box">
+				<img src="https://media.giphy.com/media/17mNCcKU1mJlrbXodo/giphy.gif" id='mov' style="display: none;" width="100" height="100">`;
+	}
+
+	function loading(){
+		return `<img src="https://js.cx/clipart/train.gif" width="150" height="100" id="box"  style="display: none;">
+				<img src="https://media.giphy.com/media/17mNCcKU1mJlrbXodo/giphy.gif" id='mov'width="100" height="100">`;
+	}
+
+	function queueRemove(){
+		queue_running = true;
+		currentLocation();
+		$(`#${ele_location.ele_main}`).html(loading());
+
+		var startTime = new Date().getTime();
+		
+		let interval_time = Math.abs(ele_location.index - queue[0]) * travel_time;
+		
+		let current_start_index = ele_location.index;
+		let cond = current_start_index > queue[0] ? 'minus' : 'plus';
+		var interval = setInterval(function(){
+							current_start_index = cond == 'plus' ? ++current_start_index : --current_start_index;
+							$('.ele_main').html('');
+							$(`#${floor_arr[current_start_index].ele_main}`).html(stoping());
+							if(new Date().getTime() - startTime > interval_time){
+								$(`#${floor_arr[current_start_index].ele_main}`).html(stoping());
+						    	updateFalseObj();
+						    	floor_arr[current_start_index].is_present = true;
+						        clearInterval(interval);
+						        queue.shift();
+						        queue_running = false;
+						        return;
+						    }
+							$(`#${floor_arr[current_start_index].ele_main}`).html(loading());
+
+					   }, travel_time);  
+		
+		
+
+	}
+
+	function queueActive(){
+		if(queue.length > 0 && !queue_running){
+			console.log('called 2');
+			queueRemove();
+		}
+	}
+
+	let floorNumber = 8;
+	let floor_arr = [];
+	let ele_location = '';
+	let queue = [];
+	let queue_running = false;
+	let travel_time = 3000;
+	$(document).ready(function(){
+		
+		floorUpdate(floorNumber);
+		updateFloorArr();
+		currentLocation();
+
+		$(`#${ele_location.ele_main}`).html(stoping());
+
+		$('.btn-primary').click(function(){
+			var index = $(this).attr('data_index');
+			if(ele_location.index !== index){
+				if(queue.indexOf(index) === -1){
+					queue.push(index);
+				}
+			}
+		});
+
+
+		setInterval(function(){
+			queueActive();
+			console.log(queue);
+		},1000);
+
+	});
+</script>
