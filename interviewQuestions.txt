@@ -1,0 +1,234 @@
+Date: 17/12/2020
+
+Company: Trioangle Technologies
+
+InterView Attend By: Karthickraja
+
+
+Round1: Technical 
+
+First round full of php and laravel
+
+Http Error Code (401,403,419,500)
+Is it possible to break 419 - ajax
+Eloquent model and relationships (hasone,hasMany,belongsTo,belongsToMany,hasManyThrough,..)
+Jquery and JavaScript basics (Like How to get value from input and how to assign value to another input box)
+Laravel Folder structure
+What are the files inside the Providers folder?
+AppProvider usage ...
+Htaccess 
+Array to object
+Object to array 
+Class and Object
+And it's difference
+What is Object and Class
+Third party plugins
+Get and first means ??
+Authentication package from laravel
+Get common elements from two arrays - function
+Payment gateway
+Laravel Aws and Message gateway
+Table la irukka oru value ah epdi laravel la use panrathu...(like function.php )
+
+Round2: Technical php and MySql
+
+Enum
+Sub queries
+Name store Panna enna datatype use pannanum.
+Explaining some php project(own created project) out of company project
+
+
+
+
+Round3: Task from Laravel
+CRUD operations for forms
+
+Round4: CEO Interview
+OOPS concept
+
+Facade in Laravel
+Interface in OOPS
+Strength and weakness
+Life term Goal
+
+
+----------END-------
+
+Date: 21/12/2020
+
+Company: codeboardtech
+
+InterView Attend By: Karthickraja
+
+Questions:
+
+MySQL:
+
+get second max value from table
+But use in single sql query
+Don't use max in your query
+
+Assume its maths table 
+id 	name 	marks
+1	ajith	78
+2	jack	76
+3 	raja	89
+4 	venkat	72
+
+My answer: SELECT * FROM time ORDER BY ideal DESC LIMIT 1,1
+
+PHP: 
+
+one logic program
+
+Find max repeated adjacent char in given char
+
+Given $input = 'abcdabccbc';
+
+Output is bc 
+Because bc repeated 3 times in given str
+
+
+My Answer: 
+
+<?php 
+
+$given_str = "abcdabccbc";
+
+$n = strlen($given_str);
+
+$array1 = array();
+for ($i=0; $i < $n -1; $i++) { 
+	$temp = $given_str[$i].$given_str[$i+1];
+	$array1[] = $temp; 
+}
+
+$unique_arr = array_unique($array1);
+
+$result_arr = array();
+
+foreach ($unique_arr as $value) {
+	$count = 0;
+	foreach ($array1 as $key) {
+		if($key == $value){
+			$count++;
+		}
+	}
+	$result_arr[$value] = $count;
+}
+
+$result_str = "";
+$result_count = 0;
+
+foreach ($result_arr as $key => $value) {
+	if($value > $result_count){
+		$result_count = $value;
+		$result_str = $key;
+	}
+}
+
+
+echo "'$result_str' is repeated ".$result_count." times";
+
+I hope it will help you.
+------ END-----
+
+
+
+Laravel
+Service Container
+Events
+Send email
+	laravel query builder
+Middleware
+Throttle
+Events and listeners
+What are the files in route folders
+What is mvc
+Why laravel
+What is jwt
+Reverse routing
+Where we set globel variables in laravel
+Laravel Storage
+What are the artisan commands
+Types of kernel
+Multiple database in laravel
+
+Php
+List of Magic Methods in PHP
+PHP Variables Scope
+What is break and  exit
+Rest api vs soap api
+Traits
+Types of errors
+Implode and explode
+String and array functions
+Type of inheritance
+Visibilities or access modifiers
+Scope variables
+PHP Global Variables
+How to get uploaded image height and width
+Difference between file_get_content and file_put_content
+How to enable to show the error in php
+
+
+$x = "0";
+    if($x){
+        echo 'true';
+    }else{
+        echo 'false';
+    }
+What is the result for above program?
+
+
+for($i=0;$i<=10;$i++){
+        if($i==4){
+            continue;
+        }
+        echo $i.'<br/>';
+    }
+What is the result for above program?
+ 
+
+
+
+for($i=0;$i<=10;$i++){
+        if($i==4){
+            break;
+        }
+        echo $i.'<br/>';
+    }
+
+What is the result for above program?
+
+
+$father = "mother";
+    	$mother = "son";
+    	echo $$father;
+What is the result for above program?
+
+array('0','2','3','3','4','5','5','6');
+How to remove duplicate inside array?
+
+
+$am = "james";
+   echo 'i am $am';
+   echo "i am $am";
+What is the result for above program?
+
+
+
+
+
+Mysql
+mysql trigger
+Primary key and foreign key unique key
+Mysql index
+Difference between mysql and mysqli
+
+
+Jquery
+	what are the data types in jQuery?
+What is cross site errors?
+Syntax of ajax
+window.onload vs $(document).ready()
