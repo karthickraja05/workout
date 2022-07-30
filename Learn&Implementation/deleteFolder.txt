@@ -1,0 +1,26 @@
+Subject: Delete Folder
+
+Note:
+Delete Folder if it has inside many folder and files like nested ways
+use below function and pass path name as paramater 
+
+/*
+Delete folder and it files if exists
+*/
+if (!function_exists('deleteFolderFiles')) {
+	function deleteFolderFiles($path)
+	{	
+		if(is_dir($path)){
+			$folderAndFile = scandir($path);
+			unset($folderAndFile[0]);
+			unset($folderAndFile[1]);
+
+			foreach($folderAndFile as $folder){
+				deleteFolderFiles($path.'/'.$folder);
+			}
+			rmdir($path);
+		}else{
+			unlink($path);
+		}
+	}
+}

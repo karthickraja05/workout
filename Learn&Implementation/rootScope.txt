@@ -1,0 +1,9 @@
+Subject: Use Global Function for all controller in angular js
+
+Description: Use below code to declare global scope function to use all controller
+
+app.run(function ($rootScope) {
+    $rootScope.test = function(){
+    	return 'test';
+    }
+});

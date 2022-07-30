@@ -1,0 +1,62 @@
+<?php
+
+ini_set('max_execution_time', 0); // 0 = Unlimited
+
+$curl = curl_init();
+
+$url = [
+		'http://www.google.com',
+		'https://trioangledemo.com/mykaribemarketplace/public/',
+		'https://www.facebook.com/gurusisyachess',
+		'https://unsplash.com/s/photos/',
+	];
+
+$search = 'india';
+
+
+$url_search = $url[3].$search;
+
+//curl_setopt($curl, CURLOPT_URL, 'http://www.google.com');
+curl_setopt($curl, CURLOPT_URL, $url_search);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+
+
+//curl_exec($curl);
+$result = curl_exec($curl);
+
+//echo $result;
+
+preg_match_all("!https://images.unsplash.com/photo-[^\s]*?q=80!", $result, $matches);
+
+//echo count($matches[0]);
+
+$images = array_unique($matches[0]);
+
+//echo "Total Images: ".count($images);
+
+
+
+if(true){
+//for ($i=0; $i < count($images); $i++) { 
+for ($i=0; $i < 2; $i++) { 
+	if(isset($images[$i])){
+		$filename = 'local/'.$search.'_'.$i.'.jpg';
+		copy($images[$i],$filename);	
+	}
+}
+}
+//chmod("/local/",0777);
+
+exec('chmod -R 777 local/');
+
+
+
+/*foreach ($images as $key => $value) {
+	echo "<p><img src='".$value."' width='300' height='400' /></p>";
+	echo "<br>";
+}*/
+
+curl_close($curl);

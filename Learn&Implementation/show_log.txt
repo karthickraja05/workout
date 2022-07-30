@@ -1,0 +1,14 @@
+Subject: content shows with word-wrap in show__l--log route
+
+Update Below Style in <pre> tag, check below for reference
+
+public function showLog()
+    {	
+    	$contents = \File::get(storage_path('logs/laravel.log'));
+        echo '<pre style=" overflow-x: auto;
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;">'.$contents.'</pre>';
+    }

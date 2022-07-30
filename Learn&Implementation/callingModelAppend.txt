@@ -1,0 +1,15 @@
+Hi Team,
+Subject: Calling model without or adequate appends value
+
+Implement:
+in-model we can set like below:
+(Example model : Hostexperience.php)
+public static $withoutAppends = false;
+    protected function getArrayableAppends() {
+        if(self::$withoutAppends){
+            return [];
+        }
+        return parent::getArrayableAppends();
+    }
+
+in the return array we can put the appends value what we want, if its returned as empty then no appends value called...

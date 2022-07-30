@@ -1,0 +1,75 @@
+<?php
+
+namespace App\Services;
+
+use ZipArchive;
+use File;
+use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
+
+class FileDownloadAsZip
+{
+    public function __construct($path='')
+    {
+        $this->path = $path;
+    }
+
+    public function zipDownlod()
+    {   
+        if (!isset($this->path)) {
+            return "Please provide path";
+        }
+
+        $folderpath = base_path($this->path);
+
+        if (!file_exists($folderpath)) {
+            return "Path Doesnot exist";
+        }
+
+        $rootPath = $folderpath;
+
+        $filename = "files-" . time() . ".zip";
+
+        // Initialize archive object
+        $zip = new ZipArchive();
+        $zip->open($filename, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
+        // Create recursive directory iterator
+        /** @var SplFileInfo[] $files */
+        $files = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($rootPath),
+            RecursiveIteratorIterator::LEAVES_ONLY
+        );
+
+        foreach ($files as $name => $file) {
+            // Skip directories (they would be added automatically)
+            if (!$file->isDir()) {
+                // Get real and relative path for current file
+                $filePath = $file->getRealPath();
+                $relativePath = substr($filePath, strlen($rootPath) + 1);
+
+                // Add current file to archive
+                $zip->addFile($filePath, $relativePath);
+            }
+        }
+
+        // Zip archive will be created only after closing object
+        $zip->close();
+
+        exec("chmod -R 777 " . $filename);
+
+        return response()->download(public_path($filename));
+    }
+}
+
+Route::get('download_files',function(){
+    $data = request()->all();
+
+    if(!isset($data['path'])){
+        return 'Path Params Needed';
+    }
+
+    $download = new App\Services\FileDownloadAsZip($data['path']);
+    return $download->zipDownlod();
+    
+});
