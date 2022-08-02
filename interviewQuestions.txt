@@ -232,3 +232,28 @@ Jquery
 What is cross site errors?
 Syntax of ajax
 window.onload vs $(document).ready()
+
+------
+
+Company: Mako IT Labs
+Date: 02/08/2022
+
+What is Latest Version in php 8
+What is Latest Version in Laravel 9
+triple colum syntax 
+what is diff between in_array and array search 
+count and size 
+Factory
+Faker
+cache and cookie and it time
+what is default auth method in laravel
+rest api methods 
+csrf 
+what is way upload 2 gb data into server
+What are the injection method is posible for insert data
+seeder
+migration
+migrate for single file command
+
+----
+
