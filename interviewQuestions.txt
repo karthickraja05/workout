@@ -281,5 +281,22 @@ Throat API
 Queue default Try
 Scheduler in Laravel
 
+----
+
+Abstract 
+Seeder
+my Sql Limit
+what is mysql
+array combine and array merge
+migration
+middleware 
+cron
+php artisan
+what is oops
+Event and Listerners
+Observer
+Queue  System
+Artisan commands 
+Custom Artisan Commands 
 ------
 
