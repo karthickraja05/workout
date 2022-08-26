@@ -257,3 +257,29 @@ migrate for single file command
 
 ----
 
+Local Storage js
+Hello World Print in body with js
+Spaceship Operator
+Having vs Where
+Array combine and Merge
+Http Method instead of Curl
+Curl Error
+Sql DB Connect With Laravel
+Cache
+Storage
+Query Builder
+mysqli_connect and mysql_connect
+use of files in Route folder inside
+SMTP Mail
+Helper Function Include
+Join Query in Eloquent
+Has Many (parent -> child -> grand_child) -> find grand_child to parent with relation
+API Status Code
+What is Scripting Language
+compiler & interpreter
+Throat API
+Queue default Try
+Scheduler in Laravel
+
+------
+
